@@ -5,13 +5,13 @@
 ### Readme
 This file contain an overview of the documentation, links to key sections, and basic information on how to navigate the repository.
 
-### [CONTRIBUTING.md](./docs/index.md)
+### [CONTRIBUTING.md](./CONTRIBUTING.md)
 Guidelines for contributing to the documentation. This file include information on how to submit pull requests, coding standards, and other relevant guidelines for contributors.
 
-### [CODE_OF_CONDUCT.md](./docs/index.md)
+### [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
 A code of conduct for contributors. This helps set expectations for behavior in the community and is often required for public repositories.
 
-### [LICENSE](./docs/index.md)
+### [LICENSE](./LICENSE)
 The license under which the documentation is distributed. Choose a suitable open-source license, such as MIT, Apache, or Creative Commons, depending on your needs.
 
 ### [docs/](./docs/)
