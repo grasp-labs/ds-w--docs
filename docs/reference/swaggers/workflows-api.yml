@@ -1,0 +1,664 @@
+basePath: /v1
+definitions:
+  echo.HTTPError:
+    properties:
+      message: {}
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.DatasetCreateResponse:
+    properties:
+      id:
+        example: 065ca35e-030b-4976-bdc1-c95edb57e663
+        type: string
+      name:
+        example: S3Dataset
+        type: string
+      properties:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.dsProperties'
+    required:
+    - name
+    - properties
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.DatasetData:
+    properties:
+      name:
+        example: S3Dataset
+        type: string
+      properties:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.dsProperties'
+    required:
+    - name
+    - properties
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.ExampleLinkedServiceAWS:
+    properties:
+      $id:
+        example: https://schema.grasplabs.no/schema/ds_linkedservice_aws.1.0.0.json
+        type: string
+      $schema:
+        example: http://json-schema.org/draft-07/schema#
+        type: string
+      description:
+        example: Schema for ds_linked_service_aws
+        type: string
+      properties:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.lsAWSProperties'
+      required:
+        example:
+        - '["name"'
+        - ' "type"'
+        - ' "typeProperties"]'
+        items:
+          type: string
+        type: array
+      title:
+        example: ds_linked_service_aws
+        type: string
+      type:
+        example: object
+        type: string
+      version:
+        example: 1.0.0
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.HealthCheck:
+    properties:
+      details:
+        example: Server is running.
+        type: string
+      time:
+        example: 2006-01-02T15:04:05Z07:00
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.LinkedServicePostResponse:
+    properties:
+      id:
+        example: 065ca35e-030b-4976-bdc1-c95edb57e663
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.StatusResponse:
+    properties:
+      status:
+        example: in progress
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.dsCompression:
+    properties:
+      type:
+        example: GZip
+        type: string
+    required:
+    - type
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.dsFormat:
+    properties:
+      type:
+        example: JsonFormat
+        type: string
+    required:
+    - type
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.dsLikedService:
+    properties:
+      referenceName:
+        example: AmazonS3LinkedService
+        type: string
+      type:
+        example: LinkedServiceReference
+        type: string
+    required:
+    - referenceName
+    - type
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.dsProperties:
+    properties:
+      annotations:
+        items: {}
+        type: array
+      linkedServiceName:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.dsLikedService'
+      type:
+        example: AmazonS3Object
+        type: string
+      typeProperties:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.dsTypeProperties'
+    required:
+    - linkedServiceName
+    - type
+    - typeProperties
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.dsTypeProperties:
+    properties:
+      compression:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.dsCompression'
+      folderPath:
+        example: s3://bucket-name/key.json
+        type: string
+      format:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.dsFormat'
+      recursive:
+        example: true
+        type: boolean
+    required:
+    - compression
+    - folderPath
+    - format
+    - recursive
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.lsAWSProperties:
+    properties:
+      description:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.lsDescription'
+      name:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.lsName'
+      type:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.lsType'
+      typeProperties:
+        $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.lsAWSTypeProperties'
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.lsAWSTypeProperties:
+    properties:
+      properties:
+        properties:
+          access_key_id:
+            properties:
+              description:
+                example: The AWS access key
+                type: string
+              type:
+                example: string
+                type: string
+            type: object
+          access_key_secret:
+            properties:
+              description:
+                example: The AWS secret key
+                type: string
+              type:
+                example: string
+                type: string
+            type: object
+          region:
+            properties:
+              default:
+                example: eu-north-1
+                type: string
+              description:
+                example: The AWS region
+                type: string
+              type:
+                example: string
+                type: string
+            type: object
+        type: object
+      required:
+        example:
+        - '["awsAccessKey"'
+        - ' "awsSecretKey"]'
+        items:
+          type: string
+        type: array
+      type:
+        example: object
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.lsDescription:
+    properties:
+      description:
+        example: The description of the linked service
+        type: string
+      type:
+        example: string
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.lsName:
+    properties:
+      description:
+        example: The name of the linked service
+        type: string
+      type:
+        example: string
+        type: string
+    type: object
+  github_com_grasp-labs_ds-workflow-api_internal_models.lsType:
+    properties:
+      const:
+        example: aws
+        type: string
+      description:
+        example: The type of the linked service
+        type: string
+      type:
+        example: string
+        type: string
+    type: object
+host: graspdp.com
+info:
+  contact:
+    email: hello@grasplabs.no
+    name: API Support
+    url: https://graspdp.com
+  description: Server supporting the construction of workflow pipelines and the ability
+    to run and monitor.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: ds-workflow API
+  version: 1.0.0
+paths:
+  /dataset:
+    post:
+      consumes:
+      - application/json
+      description: Create dataset.
+      parameters:
+      - description: Dataset body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.DatasetCreateResponse'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.DatasetData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Create dataset.
+      tags:
+      - dataset
+  /dataset/{id}:
+    delete:
+      description: Delete dataset by id.
+      parameters:
+      - description: Dataset ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Delete dataset by id.
+      tags:
+      - dataset
+    get:
+      description: Get dataset by id.
+      parameters:
+      - description: Dataset ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.DatasetData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Get dataset by id.
+      tags:
+      - dataset
+    put:
+      consumes:
+      - application/json
+      description: Update dataset by id.
+      parameters:
+      - description: Dataset ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dataset body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.DatasetData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.DatasetData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Update dataset by id.
+      tags:
+      - dataset
+  /health-check:
+    get:
+      description: A simple message indicating the server is running
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.HealthCheck'
+      summary: Health check endpoint
+      tags:
+      - health
+  /linked-service:
+    get:
+      description: Get all linked service.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.ExampleLinkedServiceAWS'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Get all linked service.
+      tags:
+      - linked-service
+    post:
+      consumes:
+      - application/json
+      description: Create Linked service.
+      parameters:
+      - description: Linked Service body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.ExampleLinkedServiceAWS'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.LinkedServicePostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Create Linked service.
+      tags:
+      - linked-service
+  /linked-service/{id}:
+    delete:
+      description: Delete Linked service by id.
+      parameters:
+      - description: Linked service ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Delete Linked service by id.
+      tags:
+      - linked-service
+    get:
+      description: Get linked service by id.
+      parameters:
+      - description: Linked service ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.ExampleLinkedServiceAWS'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Get linked service by id.
+      tags:
+      - linked-service
+    put:
+      consumes:
+      - application/json
+      description: Update Linked service by id.
+      parameters:
+      - description: Linked service ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Linked Service body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.ExampleLinkedServiceAWS'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.ExampleLinkedServiceAWS'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Update Linked service by id.
+      tags:
+      - linked-service
+  /workflow-status/{id}:
+    get:
+      description: Get status of workflow by workflow-id.
+      parameters:
+      - description: Workflow ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_grasp-labs_ds-workflow-api_internal_models.StatusResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Get status of workflow by workflow-id.
+      tags:
+      - status
+swagger: "2.0"
