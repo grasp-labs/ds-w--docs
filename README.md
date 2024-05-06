@@ -19,7 +19,7 @@ A directory to hold your documentation files. This is where you organize and str
 
 ### docs/ Directory Structure
 #### [index.md](./docs/index.md)
-The starting point for the documentation. This file should act as a table of contents or a guide to the rest of the documentation.
+The starting point for the documentation. This file act as a guide to the rest of the documentation.
 
 #### [getting-started/](./docs/getting-started/)
 Contains documents for users who are new to your project or product. This might include installation guides, quick start guides, and basic tutorials.
