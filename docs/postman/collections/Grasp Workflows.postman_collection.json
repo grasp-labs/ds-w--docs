@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "3f8d91dc-6602-4878-af9f-38231e104e91",
+		"name": "Grasp Workflows",
+		"description": "This Postman Collection is to provide all the necessary endpoints needed for using Grasp Workflows.\n\nRemember to also import the Grasp Environment for the right dev and prod variables.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29430434",
+		"_collection_link": "https://grasplabs.postman.co/workspace/Christine-Workspace~5456cad2-ea8c-4a97-b007-e6497e341fda/collection/29430434-3f8d91dc-6602-4878-af9f-38231e104e91?action=share&source=collection_link&creator=29430434"
+	},
+	"item": [
+		{
+			"name": "Subscription",
+			"item": [
+				{
+					"name": "submit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataset_id\": \"\",\r\n    \"data\": [{}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SUBCRIPTION_URL}}submit/",
+							"host": [
+								"{{SUBCRIPTION_URL}}submit"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SUBSCRIPTION_URL}}health-check/",
+							"host": [
+								"{{SUBSCRIPTION_URL}}health-check"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The Subscription service support use cases of subscribing to published messages in remote systems. Service is enabled to support data collection and maintenance in a pub/sub architecture on behalf of platform accounts.\n\nThe _submit_ endpoint is used to submit data to the workflow for processing.\n\nYou can use the _health check_ endpoint to check if the subscription service is running.\n\nMake sure that you use OAuth2.0 token from the same environment. If you use token retrieved from oauth endpoint on dev on subcription prod environment, you will get a 401 authorization error.",
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessTokenUrl",
+						"value": "{{OAUTH_TOKEN_URL}}",
+						"type": "string"
+					},
+					{
+						"key": "clientSecret",
+						"value": "{{CLIENT_SECRET_ID}}",
+						"type": "string"
+					},
+					{
+						"key": "clientId",
+						"value": "{{CLIENT_ID}}",
+						"type": "string"
+					},
+					{
+						"key": "grant_type",
+						"value": "client_credentials",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Pipeline",
+			"item": [
+				{
+					"name": "Delete Pipeline",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/pipeline/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"pipeline",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Pipeline",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"\",\r\n    \"type\": \"\",\r\n    \"name\": \"\",\r\n    \"description\": \"\",\r\n    \"activites\": {},\r\n    \"typed_properties\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/pipeline/",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"pipeline",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pipeline",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/pipeline/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"pipeline",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pipeline",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/pipeline/",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"pipeline",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Part of Workflow, a pipeline is a composition of Linked Services and Datasets to move data from A to B.\n\n_Delete Pipeline;_ Add the id of the pipeline you want to delete at end of the url.\n\n_Create Pipeline;_ Creates a new pipeline.\n\n_Update Pipeline;_ To update a pipeline, add the id of the linked service you want to update at the end of the url and in the body you paste the updated pipeline json.\n\n_Get Pipeline;_ Returns all existing pipelines. To get a spesific pipeline, add the id of the pipeline at the end of the url..",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Linked Service",
+			"item": [
+				{
+					"name": "Delete Linked Service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/linked-service/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"linked-service",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Linked Service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"\",\r\n    \"type\": \"\",\r\n    \"name\": \"\",\r\n    \"description\": \"\",\r\n    \"typed_properties\": {\r\n        \"type\": \"\",\r\n        \"url\": \"\",\r\n        \"token\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/linked-service/",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"linked-service",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Linked Service",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/linked-service/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"linked-service",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Linked Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/linked-service/",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"linked-service",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Part of Workflows, Linked Service is a connection to a service you want data from. Such as an API, an SFTP server or an AWS service.\n\n_Delete Linked Service;_ Add the id of the linked service you want to delete at end of the url.\n\n_Create Linked Service;_ Creates a new linked service.\n\n_Update Linked Service;_ To update a linked service, add the id of the linked service you want to update at the end of the url and in the body you paste the updated linked service json.\n\n_Get Linked Service;_ Returns all existing linked services. To get a spesific linked service, add the id of the linked service at the end of the url.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Dataset",
+			"item": [
+				{
+					"name": "Delete Dataset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/dataset/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"dataset",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Dataset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"\",\r\n    \"type\": \"\",\r\n    \"name\": \"\",\r\n    \"description\": \"\",\r\n    \"linked_service\": {\r\n        \"name\": \"\",\r\n        \"id\": \"\"\r\n    },\r\n    \"typed_properties\": {\r\n        \"type\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/dataset/",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"dataset",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Dataset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/dataset/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"dataset",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dataset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{WORKFLOW_URL}}/dataset/<id>",
+							"host": [
+								"{{WORKFLOW_URL}}"
+							],
+							"path": [
+								"dataset",
+								"<id>"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Part of Workflows, a Dataset is a set of data from a Linked Service. An example is Enitity data from Xledger.\n\n_Delete Dataset;_ Add the id of the dataset you want to delete at end of the url.\n\n_Create Dataset;_ Creates a new dataset.\n\n_Update Dataset;_ To update a dataset, add the id of the dataset you want to update at the end of the url and in the body you paste the updated dataset json.\n\n_Get Dataset;_ Returns all existing datasets. To get a spesific dataset, add the id of the dataset at the end of the url.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorisation",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"console.log(pm.response.json())\r",
+									"var token = pm.response.json()[\"access_token\"]\r",
+									"pm.environment.set(\"access_token\", token)\r",
+									"\r",
+									"var refresh = pm.response.json()[\"refresh_token\"]\r",
+									"pm.environment.set(\"refresh_token\", refresh)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{IDENTITY_TOKEN_ENDPOINT}}",
+							"host": [
+								"{{IDENTITY_TOKEN_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "To do queries towards the Workflow API, we need to log in through the Grasp Identity server using rest auth. Exception is Subcription service which is using Oauth2.0.\n\nBe wary that you use access token retrieved from the right environment when you make requests to the Workflow API. If you use the access token you got from identity server on dev on workflow prod environment, you will get a 401 authorization error. This is the same case with OAuth2.0 on subscription service."
+		},
+		{
+			"name": "Workflow API Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{WORKFLOW_URL}}/workflow-status/<id>",
+					"host": [
+						"{{WORKFLOW_URL}}"
+					],
+					"path": [
+						"workflow-status",
+						"<id>"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
