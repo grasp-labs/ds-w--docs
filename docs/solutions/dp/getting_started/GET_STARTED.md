@@ -2,8 +2,8 @@
 
 
 ## Sign up
-To use any of our services you need to sign up and create an account. 
-After you have done this you are able to use the interfaces and APIs 
+To use any of our services you need to sign up and create an account.
+After you have done this you are able to use the interfaces and APIs
 required to build and run a data platform.
 
 ![Register](../assets/images/sign_up.PNG)
@@ -43,7 +43,7 @@ Creating a data platform is an exercise of defining the following:
   - Tenant security settings to ensure the data is protected.
 
 ## Monitor
-Monitoring the data platform is an exercise of ensuring the data is flowing as 
+Monitoring the data platform is an exercise of ensuring the data is flowing as
 expected. We offer several services to help you monitor your data platform,
 in addition to the monitoring services you might already have.
 

@@ -1,3 +1,37 @@
+"""
+Sample module to demonstrate how to consume the GraspDP Storage API.
+
+Example response payload (products data):
+[
+    {
+        "allowPosting": false,
+        "averagePrice": 0.0,
+        "code": "09-001",
+        "costPrice": 0.0,
+        "createdAt": 1158785400000,
+        "currency_dbId": null,
+        "dateLimit": false,
+        "dbId": 1915441,
+        "description": "Reiseutlegg",
+        "exchangeRate": 0.0,
+        "expenses": false,
+        "fileFile_dbId": null,
+        "flexiFieldsItem_code1_dbId": null,
+        ...,  # Other fields
+        "_uid": "1915441",
+        "id": 0,
+        "_tenant_id": "eae3b2be-f377-445e-86b0-ead33827daae",
+        "_owner_id": "38450772",
+        "_source_time": null,
+        "_system_time": 1718022344074,
+        "_valid_from": 1718022344074,
+        "_valid_to": null,
+        "_id_range": "0-9999"
+    }
+    ...
+]
+"""
+
 import base64
 import json
 import os
@@ -22,7 +56,11 @@ def get_basic_auth_header(client_id, client_secret) -> dict:
     return auth_headers
 
 
-def get_auth_header(url: str, client_id: str, client_secret: str) -> typing.Dict:
+def get_auth_header(
+    url: str,
+    client_id: str,
+    client_secret: str,
+) -> typing.Dict:
     """
     Function returning JWT token Auth Header OAuth2 client credentials flow.
     @param url: url
@@ -46,10 +84,10 @@ def get_auth_header(url: str, client_id: str, client_secret: str) -> typing.Dict
     return {"Authorization": f"Bearer {identity_payload['access_token']}"}
 
 
-def submit_data(
+def fetch(
     url: str,
     headers: typing.Dict,
-    data: typing.Dict,
+    params: typing.Dict,
 ) -> requests.Response:
     """
     Function to submit data to API.
@@ -58,47 +96,18 @@ def submit_data(
     @param data: data
     @return: requests.Response
     """
-    return requests.post(url, data=json.dumps(data), headers=headers)
+    return requests.get(url, params=params, headers=headers)
 
 
 if __name__ == "__main__":
     """
-    # When data is invalid, 422 response is returned with instruction on how
-    # to fix the data
-    <Response [422]> {
-      'detail': [
-        {
-          'loc': ['body', 0],
-          'msg': 'Expecting value: line 1 column 1 (char 0)', 'type': 'value_error.jsondecode',
-          'ctx': {
-            'msg': 'Expecting value',
-            'doc': 'dataset_id=',
-            'pos': 0,
-            'lineno': 1,
-            'colno': 1
-          }
-        }
-      ]
-    }
-
-    # 404 response is returned when dataset_id is invalid (cannot be found)
-    <Response [404]> {
-      'detail': 'No dataset definition found: workflows/eae3b2be-f377-445e-86b0-ead33827daae/datasets/.json'
-    }
-
-    # 200 response is returned when data is successfully submitted
-    <Response [200]> {
-      "status": "pending",
-      "dataset_id": "<uuid>",
-      "session_id": "<uuid>"
-    }
+    Example of fetching data from API.
     """
 
     CLIENT_ID = os.environ.get("CLIENT_ID")
     CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-    LOGIN_URL = "https://auth-dev.grasp-daas.com/oauth/token/"
-    SUBMIT_URL = "https://grasp-daas.com/api/subscription-dev/v1/submit/"
-    DATASET_ID = ""
+    LOGIN_URL = "https://auth.grasp-daas.com/oauth/token/"
+    SUBMIT_URL = "https://grasp-daas.com/api/storage/v1/submit/"
 
     data = [{}]
     auth_headers = get_auth_header(
@@ -111,11 +120,16 @@ if __name__ == "__main__":
 
     headers = {**auth_headers, **extra_headers}
 
-    payload = {"dataset_id": DATASET_ID, "data": data}
+    params = {
+        "source_system": "xledger",
+        "dataset": "products",
+        "source_id": "38450772",
+        "workspace": "cart",
+    }
 
-    response = submit_data(
+    response = fetch(
         url=SUBMIT_URL,
         headers=headers,
-        data=payload,
+        params=params,
     )
     print(response, response.json())
