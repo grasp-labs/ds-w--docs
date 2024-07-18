@@ -80,13 +80,9 @@ def get_auth_header(
     token_request_data = {
         "grant_type": "client_credentials",
     }
-    auth_headers = get_basic_auth_header(
-        client_id, client_secret
-    )
+    auth_headers = get_basic_auth_header(client_id, client_secret)
 
-    response = requests.post(
-        url, data=token_request_data, headers=auth_headers
-    )
+    response = requests.post(url, data=token_request_data, headers=auth_headers)
 
     if response.status_code != 200:
         raise PermissionError(f"Failed to get JWT token: {response.content}")
@@ -120,12 +116,16 @@ if __name__ == "__main__":
     CLIENT_ID = os.environ.get("CLIENT_ID")
     CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
     BUILDING_MODE = os.environ.get("BUILDING_MODE", "dev")
-    LOGIN_URL = "https://auth.grasp-daas.com/oauth/token/" \
-        if BUILDING_MODE == "prod" \
+    LOGIN_URL = (
+        "https://auth.grasp-daas.com/oauth/token/"
+        if BUILDING_MODE == "prod"
         else "https://auth-dev.grasp-daas.com/oauth/token/"
-    ORDER_URL = "https://fmdp.io/api/stoa/v2/order/" \
-        if BUILDING_MODE == "prod" \
+    )
+    ORDER_URL = (
+        "https://fmdp.io/api/stoa/v2/order/"
+        if BUILDING_MODE == "prod"
         else "https://fmdp.io/api/stoa-dev/v2/order/"
+    )
 
     data = [{}]
     auth_headers = get_auth_header(
@@ -139,11 +139,11 @@ if __name__ == "__main__":
     headers = {**auth_headers, **extra_headers}
 
     params = {
-        "product_group_name": "xledger",
-        "product_name": "entities",
-        "version": "1.1",
-        "owner_id": "38450772",
-        "workspace": "cart"
+        "product_group_name": os.environ.get("PRODUCT_GROUP_NAME"),
+        "product_name": os.environ.get("PRODUCT_NAME"),
+        "version": os.environ.get("VERSION"),
+        "owner_id": os.environ.get("OWNER_ID"),
+        "workspace": os.environ.get("WORKSPACE"),
     }
 
     response = fetch(
@@ -160,7 +160,9 @@ if __name__ == "__main__":
         # 403 Forbidden: Insufficient permissions - entitlements has
         # not been granted
         if response.status_code == 403:
-            raise PermissionError("Insufficient permissions. Entitlements has not been granted.")
+            raise PermissionError(
+                "Insufficient permissions. Entitlements has not been granted."
+            )
 
         # 422 Unprocessable Entity: Invalid parameters.
         if response.status_code == 422:
