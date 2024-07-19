@@ -30,17 +30,20 @@ def fetch(client_id: str, client_secret: str, config: typing.Dict) -> pd.DataFra
     return stoa.fetch(format="dataframe")
 
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Fetch data from the API.")
     parser.add_argument("--client_id", type=str, help="Client ID", required=True)
-    parser.add_argument("--client_secret", type=str, help="Client Secret", required=True)
-    parser.add_argument("--config", type=str, help="Path to the config file", required=True)
+    parser.add_argument(
+        "--client_secret", type=str, help="Client Secret", required=True
+    )
+    parser.add_argument(
+        "--config", type=str, help="Path to the config file", required=True
+    )
 
     # Parse the arguments
     args = parser.parse_args()
     # Load the config file
-    with open(args.config, 'r') as f:
+    with open(args.config, "r") as f:
         config = json.load(f)
 
     data = fetch(args.client_id, args.client_secret, config)
