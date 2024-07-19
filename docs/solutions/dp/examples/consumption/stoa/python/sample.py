@@ -1,5 +1,5 @@
 """
-Sample module to demonstrate how to consume the GraspDP Storage API.
+Sample module to demonstrate how to consume the GraspDP STOA API.
 
 Sample can be configured to use development (default) and production
 environment by setting the BUILDING_MODE environment variable.
@@ -29,8 +29,8 @@ Example response payload (products data):
         ...,  # Other fields
         "_uid": "1915441",
         "id": 0,
-        "_tenant_id": "eae3b2be-f377-445e-86b0-ead33827daae",
-        "_owner_id": "38450772",
+        "_tenant_id": "b9b78e59-7ee2-4652-a865-d868c4b6b476",
+        "_owner_id": "24739887",
         "_source_time": null,
         "_system_time": 1718022344074,
         "_valid_from": 1718022344074,
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         if BUILDING_MODE == "prod"
         else "https://auth-dev.grasp-daas.com/oauth/token/"
     )
-    ORDER_URL = (
+    URL = (
         "https://fmdp.io/api/stoa/v2/order/"
         if BUILDING_MODE == "prod"
         else "https://fmdp.io/api/stoa-dev/v2/order/"
@@ -147,7 +147,7 @@ if __name__ == "__main__":
     }
 
     response = fetch(
-        url=ORDER_URL,
+        url=URL,
         headers=headers,
         params=params,
     )

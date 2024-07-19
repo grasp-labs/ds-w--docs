@@ -1,6 +1,15 @@
 """
 Sample module to demonstrate how to consume the GraspDP Storage API.
 
+Sample can be configured to use development (default) and production
+environment by setting the BUILDING_MODE environment variable.
+
+Credentials need to be obtained from the GraspDP team and set as environment
+variables prior to running the sample.
+
+Client ID must be granted necessary entitlements to access the API or
+a 403 Permission error will be raised.
+
 Example response payload (products data):
 [
     {
@@ -20,8 +29,8 @@ Example response payload (products data):
         ...,  # Other fields
         "_uid": "1915441",
         "id": 0,
-        "_tenant_id": "eae3b2be-f377-445e-86b0-ead33827daae",
-        "_owner_id": "38450772",
+        "_tenant_id": "b9b78e59-7ee2-4652-a865-d868c4b6b476",
+        "_owner_id": "24739887",
         "_source_time": null,
         "_system_time": 1718022344074,
         "_valid_from": 1718022344074,
@@ -106,8 +115,17 @@ if __name__ == "__main__":
 
     CLIENT_ID = os.environ.get("CLIENT_ID")
     CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-    LOGIN_URL = "https://auth.grasp-daas.com/oauth/token/"
-    SUBMIT_URL = "https://grasp-daas.com/api/storage/v1/submit/"
+    BUILDING_MODE = os.environ.get("BUILDING_MODE", "dev")
+    LOGIN_URL = (
+        "https://auth.grasp-daas.com/oauth/token/"
+        if BUILDING_MODE == "prod"
+        else "https://auth-dev.grasp-daas.com/oauth/token/"
+    )
+    URL = (
+        "https://grasp-daas.com/api/storage/v1/file/cart/data/"
+        if BUILDING_MODE == "prod"
+        else "https://grasp-daas.com/api/storage-dev/v1/file/cart/data/"
+    )
 
     data = [{}]
     auth_headers = get_auth_header(
@@ -120,16 +138,44 @@ if __name__ == "__main__":
 
     headers = {**auth_headers, **extra_headers}
 
+    # A new version of Storage will be made availabe soon
+    # where parameters will be harmonized with the rest of the APIs.
     params = {
-        "source_system": "xledger",
-        "dataset": "products",
-        "source_id": "38450772",
-        "workspace": "cart",
+        "source_system": os.environ.get("PRODUCT_GROUP_NAME"),
+        "source_id": os.environ.get("OWNER_ID"),
+        "dataset": os.environ.get("PRODUCT_NAME"),
+        "version": os.environ.get("VERSION"),
     }
 
     response = fetch(
-        url=SUBMIT_URL,
+        url=URL,
         headers=headers,
         params=params,
     )
-    print(response, response.json())
+
+    if response.status_code != 200:
+        # 401 Unauthorized: Invalid credentials
+        if response.status_code == 401:
+            raise PermissionError("Invalid credentials. Please check your credentials.")
+
+        # 403 Forbidden: Insufficient permissions - entitlements has
+        # not been granted
+        if response.status_code == 403:
+            raise PermissionError(
+                f"Insufficient permissions. Entitlements has not been granted. {response.json()}"
+            )
+
+        # 422 Unprocessable Entity: Invalid parameters.
+        if response.status_code == 422:
+            raise PermissionError(f"Invalid parameters. {response.json()}")
+
+        # Something unexpected happened.
+        raise PermissionError(f"Failed to get data: {response.content}")
+
+    data = response.json()
+
+    if not data:
+        raise ValueError("No data found")
+
+    with open("data.json", "w") as f:
+        json.dump(data, f, indent=2)
