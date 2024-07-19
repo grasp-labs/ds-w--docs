@@ -33,13 +33,9 @@ def get_auth_header(url: str, client_id: str, client_secret: str) -> typing.Dict
     token_request_data = {
         "grant_type": "client_credentials",
     }
-    auth_headers = get_basic_auth_header(
-        client_id, client_secret
-    )
+    auth_headers = get_basic_auth_header(client_id, client_secret)
 
-    response = requests.post(
-        url, data=token_request_data, headers=auth_headers
-    )
+    response = requests.post(url, data=token_request_data, headers=auth_headers)
 
     if response.status_code != 200:
         raise PermissionError(f"Failed to get JWT token: {response.content}")
@@ -67,33 +63,33 @@ def submit_data(
 
 if __name__ == "__main__":
     """
-    # When data is invalid, 422 response is returned with instruction on how 
+    # When data is invalid, 422 response is returned with instruction on how
     # to fix the data
     <Response [422]> {
       'detail': [
         {
-          'loc': ['body', 0], 
-          'msg': 'Expecting value: line 1 column 1 (char 0)', 'type': 'value_error.jsondecode', 
+          'loc': ['body', 0],
+          'msg': 'Expecting value: line 1 column 1 (char 0)', 'type': 'value_error.jsondecode',
           'ctx': {
-            'msg': 'Expecting value', 
-            'doc': 'dataset_id=', 
-            'pos': 0, 
-            'lineno': 1, 
+            'msg': 'Expecting value',
+            'doc': 'dataset_id=',
+            'pos': 0,
+            'lineno': 1,
             'colno': 1
           }
         }
       ]
     }
-    
+
     # 404 response is returned when dataset_id is invalid (cannot be found)
     <Response [404]> {
       'detail': 'No dataset definition found: workflows/eae3b2be-f377-445e-86b0-ead33827daae/datasets/.json'
     }
-    
+
     # 200 response is returned when data is successfully submitted
     <Response [200]> {
-      "status": "pending", 
-      "dataset_id": "<uuid>", 
+      "status": "pending",
+      "dataset_id": "<uuid>",
       "session_id": "<uuid>"
     }
     """
