@@ -18,6 +18,7 @@ The license under which the documentation is distributed. Choose a suitable open
 A directory to hold your documentation files. This is where you organize and structure your documentation content.
 
 ### [solutions/](./docs/solutions/)
+A directory to hold documentation for specific solutions. This is where you find solution content.
 
 ### [Data Platform (DP)/](./docs/solutions/dp/)
 Documentation for the Data Platform (DP) solution.
