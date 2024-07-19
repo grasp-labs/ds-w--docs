@@ -11,7 +11,7 @@ Guidelines for contributing to the documentation. This file include information 
 ### [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
 A code of conduct for contributors. This helps set expectations for behavior in the community and is often required for public repositories.
 
-### [LICENSE](./LICENSE)
+### [LICENSE](./LICENSE.md)
 The license under which the documentation is distributed. Choose a suitable open-source license, such as MIT, Apache, or Creative Commons, depending on your needs.
 
 ### [docs/](./docs/)
