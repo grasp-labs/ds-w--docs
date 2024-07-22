@@ -15,6 +15,8 @@ Entitlements is a service that allows administrators to define groups and
 regulate permissions. In simple terms, entitlements is a service that can be
 used to give access to services to a group of users.
 
+[Read more](./GroupMemberships.md:include)
+
 ## Access Control Lists
 Access Control Lists (ACLs) are used to define permissions to data. ACL can be
 defined and regulated by administrators much the same way as permissions to
