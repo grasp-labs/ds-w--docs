@@ -1,6 +1,7 @@
 {
   "product_group_name": "xledger",
-  "product_name": "entities_1.1",
+  "product_name": "entities",
+  "version": "1.1",
   "workspace": "cart",
-  "owner_id": "abc"
+  "owner_id": "..."
 }
