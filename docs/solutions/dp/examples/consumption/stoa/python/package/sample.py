@@ -2,7 +2,7 @@
 Example Python script for using the Grasp AS Stoa package.
 Find more information here: https://pypi.org/project/ds-stoa/
 
-Example command: pipenv run python sample.py --client_id abc client_secret def --config config.json
+Example command: pipenv run python sample.py --client_id abc --client_secret def --config config.json
 """
 import argparse
 import json
