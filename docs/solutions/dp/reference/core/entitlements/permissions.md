@@ -41,3 +41,10 @@ various queries and operations on our Data platform.
 > the members are the viewer group. You can check this on Product Management by
 > clicking on Access Control on a product. There you can also add groups to the
 > access control if it is incorrect or missing this.
+
+> *When I try to do a full load through product management page, I get a
+> a permission denied status back.*
+>
+> This is an error that is similar to the one above. Follow the same procedure,
+> and you have already done this previously, try to re-submit access control
+> groups on product level.
