@@ -2,7 +2,14 @@
 
 ## Languange
 
-Golang (go) as prefered language for API`s.
+- Golang (go) as prefered language for API`s.
+
+### Framework
+
+- Web
+  - Echo
+- ORM
+-   Gorm
 
 ## Routes
 
