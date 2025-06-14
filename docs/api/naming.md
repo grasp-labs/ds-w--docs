@@ -34,7 +34,7 @@ A resource is the fundamental concept of a REST API. A resource is an object wit
 
 Resource can be accessed and manipulated by a combination of http methods and resource identifier ([URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier)).
 
-As Arve suggested we prefer singular form of resource naming (i.e. `product` rather than `products`).
+As suggested we prefer singular form of resource naming (i.e. `product` rather than `products`).
 
 __to_be_discussed__: In some cases, the plural form makes it easier to achieve consistent naming across endpoint operations on different cardinalities.
 
