@@ -53,3 +53,17 @@ type Target struct {
 	Data TargetData `json:"data"`
 }
 ```
+
+## Implementation of base model
+
+In the example below we show how stuct embedding (composition) can compose new stucts from a common base model.
+
+```go
+type Target struct {
+	BaseModel
+	Address       string     `gorm:"type:text;not null" json:"address"`
+	Type          TargetType `gorm:"type:text;not null" json:"type"`
+	TimeoutMs     int32      `gorm:"type:int;not null" json:"timeout_ms"` // timeout in milliseconds
+	ExpectHealthy bool       `gorm:"type:boolean;not null" json:"expect_healthy"`
+}
+```
