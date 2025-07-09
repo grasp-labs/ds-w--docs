@@ -2,6 +2,8 @@
 
 ## Health Check
 
+Health check model define JSON response of any `health-check/` route.
+
 ```go
 type HealthCheck struct {
 	Message string `json:"message" example:"Server is running."`
@@ -9,22 +11,26 @@ type HealthCheck struct {
 }
 ```
 
-## ORM
+## Base model
+
+Base model for most internet facing API managed table.
+
+Notice `tags` column is a hashMap (string: string) and `metadata` and array of string: string pairs.
 
 ```go
 type BaseModel struct {
-	ID          uuid.UUID  `gorm:"type:uuid;primaryKey" json:"id"`
-	Issuer      string     `json:"issuer"`
-	Name        string     `json:"name"`
-	Version     string     `json:"version"`
-	Description string     `json:"description"`
-	Status      ItemStatus `json:"status"`
-	Metadata    string     `json:"metadata"`
-	Tags        string     `json:"tags"`
-	CreatedAt   time.Time  `json:"created_at"`
-	ModifiedAt  time.Time  `json:"modified_at"`
-	CreatedBy   string     `json:"created_by"`
-	ModifiedBy  string     `json:"modified_by"`
+	ID          uuid.UUID                        `gorm:"type:uuid;primaryKey" json:"id"`
+	Issuer      string                           `json:"issuer"`
+	Name        string                           `json:"name"`
+	Version     string                           `json:"version"`
+	Description string                           `json:"description"`
+	Status      ItemStatus                       `json:"status"`
+	Metadata    types.JSONB[[]map[string]string] `gorm:"column:metadata;type:jsonb" json:"metadata"`
+	Tags        types.JSONB[map[string]string]   `gorm:"column:tags;type:jsonb"     json:"tags"`
+	CreatedAt   time.Time                        `json:"created_at"`
+	ModifiedAt  time.Time                        `json:"modified_at"`
+	CreatedBy   string                           `json:"created_by"`
+	ModifiedBy  string                           `json:"modified_by"`
 }
 
 func (t *BaseModel) Validate() []ValidationError {
